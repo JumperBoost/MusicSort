@@ -46,14 +46,16 @@ namespace MusicSort
                             try
                             {
                                 AudioFile audioFile = new AudioFile(file);
-                                if (audioFile.Tag.AlbumArtists.Length == 0 || audioFile.Tag.AlbumArtists.Length == 0 && audioFile.Tag.Artists.Length == 0) break;
-                                if (artist.Contains(audioFile.Tag.AlbumArtists[0]) || artist.Count == 0)
+                                if (audioFile.Tag.AlbumArtists.Length == 0)
+                                {
+                                    if (audioFile.Tag.Artists.Length != 0 && (artist.Contains(audioFile.Tag.Artists[0]) || artist.Count == 0))
+                                    {
+                                        artist.Add(audioFile.Tag.Artists[0]);
+                                    }
+                                }
+                                else if (audioFile.Tag.AlbumArtists.Length != 0 && (artist.Contains(audioFile.Tag.AlbumArtists[0]) || artist.Count == 0))
                                 {
                                     artist.Add(audioFile.Tag.AlbumArtists[0]);
-                                }
-                                else if (artist.Contains(audioFile.Tag.Artists[0]) || artist.Count == 0)
-                                {
-                                    artist.Add(audioFile.Tag.Artists[0]);
                                 }
                                 else break;
                             }
